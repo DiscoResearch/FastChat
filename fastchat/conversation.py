@@ -1408,6 +1408,20 @@ register_conv_template(
     )
 )
 
+# DiscoLM German default template
+register_conv_template(
+    Conversation(
+        name="discolm_german_chat",
+        system_template="""<|im_start|>system
+{system_message}""",
+        system_message="""Du bist ein hilfreicher Assistent.""",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<|im_end|>",
+        stop_token_ids=[32000, 0],
+    )
+)
+
 if __name__ == "__main__":
     from fastchat.conversation import get_conv_template
 

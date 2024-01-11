@@ -1564,6 +1564,16 @@ class DolphinAdapter(OpenOrcaAdapter):
         return get_conv_template("dolphin-2.2.1-mistral-7b")
 
 
+class DiscoGermanAdapter(OpenOrcaAdapter):
+    """Model adapter for DiscoResearch/DiscoLM_German_7b_v0.1"""
+
+    def match(self, model_path: str):
+        return "discolm" in model_path.lower() and "german" in model_path.lower()
+
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("discolm_german_chat")
+    
+
 class Hermes2Adapter(BaseModelAdapter):
     """Model adapter for teknium/OpenHermes-2.5-Mistral-7B and teknium/OpenHermes-2-Mistral-7B models"""
 

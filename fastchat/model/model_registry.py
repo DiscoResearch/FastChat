@@ -513,6 +513,13 @@ register_model_info(
 )
 
 register_model_info(
+    ["DiscoLM_German_7b_v0.1"],
+    "DiscoLM-German 7B",
+    "https://huggingface.co/DiscoResearch/DiscoLM_German_7b_v0.1",
+    "A German Mistral model trained by Disco Research",
+)
+
+register_model_info(
     [
         "AquilaChat-7B",
         "AquilaChat2-7B",
