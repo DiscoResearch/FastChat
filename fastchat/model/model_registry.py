@@ -743,3 +743,10 @@ register_model_info(
     "https://reka.ai/reka-flash",
     "Multimodal model by Reka",
 )
+
+register_model_info(
+    ["DiscoLM_German_7b_v1"],
+    "DiscoLM German 7b",
+    "https://huggingface.co/DiscoResearch/DiscoLM_German_7b_v1",
+    "A Mistral-based finetune focused on German-language applications.",
+)

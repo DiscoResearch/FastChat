@@ -7,9 +7,9 @@ If you have any changes in mind, please contribute back so the community can ben
 
 import base64
 import dataclasses
-from enum import auto, IntEnum
+from enum import IntEnum, auto
 from io import BytesIO
-from typing import List, Any, Dict, Union, Tuple
+from typing import Dict, List, Tuple, Union
 
 
 class SeparatorStyle(IntEnum):
@@ -128,11 +128,7 @@ class Conversation:
             ret = system_prompt
             for i, (role, message) in enumerate(self.messages):
                 if message:
-                    ret += (
-                        role
-                        + ": "
-                        + message.replace("\r\n", "\n").replace("\n\n", "\n")
-                    )
+                    ret += role + ": " + message.replace("\r\n", "\n").replace("\n\n", "\n")
                     ret += "\n\n"
                 else:
                     ret += role + ":"
@@ -336,8 +332,8 @@ class Conversation:
 
     def convert_image_to_base64(self, image):
         """Given an image, return the base64 encoded image string."""
-        from PIL import Image
         import requests
+        from PIL import Image
 
         # Load image if it has not been loaded in yet
         if type(image) == str:
@@ -402,8 +398,7 @@ class Conversation:
 
     def extract_text_from_messages(self):
         return [
-            (role, message[0]) if type(message) is tuple else (role, message)
-            for role, message in self.messages
+            (role, message[0]) if type(message) is tuple else (role, message) for role, message in self.messages
         ]
 
     def copy(self):
@@ -438,9 +433,7 @@ conv_templates: Dict[str, Conversation] = {}
 def register_conv_template(template: Conversation, override: bool = False):
     """Register a new conversation template."""
     if not override:
-        assert (
-            template.name not in conv_templates
-        ), f"{template.name} has been registered."
+        assert template.name not in conv_templates, f"{template.name} has been registered."
 
     conv_templates[template.name] = template
 
@@ -1677,6 +1670,30 @@ register_conv_template(
         sep_style=SeparatorStyle.ADD_NEW_LINE_SINGLE,
         sep="\n\n",
         stop_str="</s>",
+    )
+)
+
+register_conv_template(
+    Conversation(
+        name="discolm_german",
+        system_template="<|im_start|>system\n{system_message}",
+        system_message="Du bist ein hilfreicher Assistent.",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<|im_end|>",
+        stop_token_ids=[32000, 32001],
+    )
+)
+
+register_conv_template(
+    Conversation(
+        name="discolm_german_llama3",
+        system_template="<|im_start|>system\n{system_message}",
+        system_message="Du bist ein hilfreicher Assistent.",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<|im_end|>",
+        stop_token_ids=[128001, 128003],
     )
 )
 
